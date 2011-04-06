@@ -1,0 +1,59 @@
+MySlowTransactionCapture - A tool to print MySQL transactions that take 
+more than <n> milliseconds
+ 
+How to use:
+* Install libpcap, libpcap-devel, boost, and boost-devel if not installed
+* make
+* make install
+* Run myslowtrancapture
+--
+[root]# myslowtrancapture -i bond0
+
+Tips:
+
+* Use -i "interface name" to listen to specific NIC.
+--- example ---
+[root]# myslowtrancapture -i eth1
+Monitoring eth1 interface..
+Listening port 3306..
+Logging transactions that take more than 4000 milliseconds..
+---------------
+
+* Use -f "filtering rules" to listen to specific IP addresses/ports.
+Filtering syntax is the same as that of tcpdump.
+--- example ---
+[root]# myslowtrancapture -f "tcp port 5508"
+Monitoring any interface..
+Filtering rule: tcp port 5508
+Logging transactions that take more than 4000 milliseconds..
+---------------
+
+* Use -t milliseconds to change printing criteria.
+--- example ---
+[root]# myslowtrancapture -i eth0 -t 10000
+Monitoring eth0 interface..
+Listening port 3306..
+Logging transactions that take more than 10000 milliseconds..
+---------------
+
+* Use -o when your MySQL server speaks old MySQL protocols.
+--- example ---
+[root]# myslowtrancapture -i eth0 -t 10000 -o
+Monitoring eth0 interface..
+Listening port 3306..
+Logging transactions that take more than 10000 milliseconds..
+Capturing MySQL old protocols..
+---------------
+
+Limitations:
+* Implicit commit by DDL is not supported (not handled as transaction ends).
+* MySQL Server-Side Prepared Statement protocol is not supported.
+
+License: GNU General Public License version 2
+
+Author: DeNA Co.,Ltd. <Yoshinori.Matsunobu@gmail.com>
+* MySQL protocol command constants were taken from MySQL source code
+* local_address.c, local_address.h were taken from tcprstat(http://github.com/Lowercases/tcprstat/) authored by Ignacio Nin under GNU General Public License version 2.
+* sll.h was taken from libpcap under BSD 4.3 license.
+
+
