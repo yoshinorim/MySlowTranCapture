@@ -1,5 +1,7 @@
 MySlowTransactionCapture - A tool to print MySQL transactions that take 
 more than <n> milliseconds
+
+Reasons for developing this tool was described here: http://yoshinorimatsunobu.blogspot.com/2011/04/tracking-long-running-transactions-in.html
  
 How to use:
 * Install libpcap, libpcap-devel, boost, and boost-devel if not installed
